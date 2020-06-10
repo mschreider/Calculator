@@ -3,16 +3,28 @@ body {
     height:40%;
     margin: auto;
 }
+.input {
+    border-style: solid;
+}
 
 .inputDisplay {
-    border-style: solid;
     text-align: right;
 }
 
 .inputButtons {
     display: flex;
     flex-wrap: wrap;
+
 }
 .inputButtons>* {
-    flex: 1 0 25%;
+    flex: 25%;
 }
+
+.inputButtons>#zero {
+    flex: 50%;
+}
+
+.is-pressed {
+    background-color: rgb(248, 207, 131);
+}
+

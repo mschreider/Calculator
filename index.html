@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="script.js"></script>
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
-        <div class="input">
-            <h2 class="inputDisplay">1 2 3 4</h2>
+        <div class="calculator">
+            <div class="input">
+                <h2 class="inputDisplay"></h2>
+            </div>
+            <div class="inputButtons">
+                <button id="clear" data-action="clear">C</button>
+                <button id="plusminus" data-action="plusminus">+/-</button>
+                <button id="percent" data-action="percent">%</button>
+                <button id="divide" data-action="divide">÷</button>
+                <button id="seven" value=7>7</button>
+                <button id="eight" value=8>8</button>
+                <button id="nine" value=9>9</button>
+                <button id="multiply" data-action="multiply">X</button>
+                <button id="four" value=4>4</button>
+                <button id="five" value=5>5</button>
+                <button id="six" value=6>6</button>
+                <button id="subtract" data-action="subtract">-</button>
+                <button id="one" value=1>1</button>
+                <button id="two" value=2>2</button>
+                <button id="three" value=3>3</button>
+                <button id="add" data-action="add">+</button>
+                <button id="zero" value=0>0</button>
+                <button id="decimal" data-action="decimal">.</button>
+                <button id="equals" data-action="equals">=</button>
+            </div>
         </div>
-        <div class="inputButtons">
-            <button id="clear">C</button>
-            <button id="plusminus">+/-</button>
-            <button id="percent">%</button>
-            <button id="divide">÷</button>
-            <button id="7">7</button>
-            <button id="8">8</button>
-            <button id="9">9</button>
-            <button id="multiply">X</button>
-            <button id="4">4</button>
-            <button id="5">5</button>
-            <button id="6">6</button>
-            <button id="subtract">-</button>
-            <button id="1">1</button>
-            <button id="2">2</button>
-            <button id="3">3</button>
-            <button id="add">+</button>
-            <button id="0">0</button>
-            <button id="decimal">.</button>
-            <button id="equals">=</button>
-        </div>
+        
     </body>
+    <script src="script.js"></script>
 </html>
