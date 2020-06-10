@@ -1,40 +1,39 @@
-var start_value = 0;
-function add(num1, num2) {
+function add(firstValue, secondValue) {
     // let sum = numbers.reduce(((total, num) => total + num), start_value);
     // console.log(sum);
     // start_value = sum;
-    let sum = num1 + num2;
+    let sum = parseInt(firstValue) + parseInt(secondValue);
     return sum; 
 }
 
-function subtract(num1, num2) {
+function subtract(firstValue, secondValue) {
     // let difference = numbers.reduce(((total, num) => total - num), start_value);
     // console.log(difference);
     // start_value = difference;
-    let difference = num1 - num2;
+    let difference = parseInt(firstValue) - parseInt(secondValue);
     return difference;
 }
 
-function multiply(num1, num2) {
+function multiply(firstValue, secondValue) {
     // start_value = 1;
     // let product = numbers.reduce(((total, num) => total * num), start_value);
     // console.log(product);
     // start_value = product;
-    let product = num1 * num2;
+    let product = parseInt(firstValue) * parseInt(secondValue);
     return product;
 }
 
-function divide(num1, num2) {
+function divide(firstValue, secondValue) {
     // start_value = 1;
     // let quotient = numbers.reduce(((total, num) => total / num), start_value);
     // console.log(quotient);
     // start_value = quotient;
-    let quotient = num1 / num2;
+    let quotient = parseInt(firstValue) / parseInt(secondValue);
     return quotient;
 }
 
 function percent(value) {
-    let percentage = value/100;
+    let percentage = parseInt(value)/100;
     start_value = percentage;
     console.log(percentage);
     return percentage;
@@ -42,25 +41,30 @@ function percent(value) {
 
 // Create a new function operate that takes an operator 
 // and 2 numbers and then calls one of the above functions on the numbers.
-function operate(operator, num1, num2){
+function calculate(operator, firstValue, secondValue){
+    let result = '';
     switch (operator) {
         case 'multiply':
-            return multiply(num1, num2);
+            result = multiply(firstValue, secondValue);
+            return result;
     
         case 'divide':
-            return divide(num1, num2);
-        
+            result = divide(firstValue, secondValue);
+            return result;
+
         case 'add':
-            return add(num1, num2);
-        
+            result = add(firstValue, secondValue);
+            return result;
+
         case 'subtract':
-            return subtract(num1, num2);
+            result = subtract(firstValue, secondValue);
+            return result;
     }
 }
 
 let displayedNum = "";
-let num1 = 0;
-let num2 = 0;
+let firstValue = 0;
+let secondValue = 0;
 let answer = 0;
 let operator = "";
 const calculator = document.querySelector('.calculator');
@@ -71,16 +75,20 @@ const inputButtons = document.querySelectorAll('button');
 inputButtons.forEach((button) => {
     button.addEventListener('click', function(e) {
         const key = e.target;
+        console.log(key);
         const action = key.dataset.action;
+        console.log(action);
         const buttonValue = key.textContent
         console.log(buttonValue);
         displayedNum = display.textContent;
         const previousKeyType = calculator.dataset.previousKeyType;
+        console.log(calculator.dataset);
 
         if (!action) {
             calculator.dataset.previousKey = 'number';
             if (displayedNum === '0' || previousKeyType === 'operator') {
                 display.textContent = buttonValue;
+                displayedNum = display.textContent;
                 // Remove .is-depressed class from all keys
                 Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-pressed'))
                 
@@ -107,88 +115,27 @@ inputButtons.forEach((button) => {
            action === "multiply") {
             key.classList.add('is-pressed');
             calculator.dataset.previousKeyType = 'operator';
-            num1 = parseInt(displayedNum);
+            firstValue = displayedNum;
             operator = action;
         }
         
-        if(action == "equals"){
+        if(action == "calculate"){
             calculator.dataset.previousKeyType = 'calculate';
-            num2 = parseInt(displayedNum);
-            answer = operate(operator, num1, num2);
+            secondValue = displayedNum;
+            answer = calculate(operator, firstValue, secondValue);
             display.textContent = answer;
         }
 
         if (action == "clear"){
             calculator.dataset.previousKeyType = 'clear';
-            num1 = 0;
-            num2 = 0;
+            firstValue = 0;
+            secondValue = 0;
             displayedNum = "";
             operator = "";
             display.textContent = "0";
+            Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-pressed'));
         }
 
-
-       
-
-       /*  let buttonValue = button.value;
-        console.log(buttonValue);
-        displayedNum += buttonValue;
-        displayedNum = parseInt(displayedNum);
-        display.textContent = displayedNum;
-        console.log(displayedNum);
-
-        switch (buttonValue) {
-            case "+":
-                num1 = displayedNum;
-                display.textContent = num1 + " " + buttonValue;
-                operator = "+";
-                 
-                break;
-        
-            case "-":
-
-                break;
-
-            case "/":
-
-                break;
-            
-            case "*":
-
-                break;
-
-            case "=":
-                num2 = displayedNum;
-                switch (operator) {
-                    case "+":
-                        answer = operate("+", num1, num2);
-                        break;
-                
-                    case "-":
-                        break;
-
-                    case "/":
-
-                        break;
-                    
-                    case "*":
-        
-                        break;
-                }
-                break;
-
-            case "clear":
-                num1 = 0;
-                num2 = 0;
-                displayedNum = "";
-                display.textContent = "0";
-                break;
-        }
-        if(operator != ""){
-            displayedNum = "";
-            displayedNum = buttonValue;
-            display.textContent = displayedNum;
-        } */
         
 
     });
