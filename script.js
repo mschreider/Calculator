@@ -49,8 +49,14 @@ function calculate(operator, firstValue, secondValue){
             return result;
     
         case 'divide':
-            result = divide(firstValue, secondValue);
-            return result;
+            if (secondValue == 0){
+                result = "You cannot divide by 0!"
+                return result;
+            }
+            else {
+                result = divide(firstValue, secondValue);
+                return result;   
+            }
 
         case 'add':
             result = add(firstValue, secondValue);
@@ -63,9 +69,6 @@ function calculate(operator, firstValue, secondValue){
 }
 
 let displayedNum = "";
-let firstValue = 0;
-let secondValue = 0;
-let answer = 0;
 let operator = "";
 const calculator = document.querySelector('.calculator');
 const display = document.querySelector('.inputDisplay');
@@ -90,7 +93,7 @@ inputButtons.forEach((button) => {
                 display.textContent = buttonValue;
                 displayedNum = display.textContent;
                 // Remove .is-depressed class from all keys
-                Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-pressed'))
+                Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-pressed'));
                 
             } 
             else {
@@ -100,10 +103,10 @@ inputButtons.forEach((button) => {
         
         if (action === 'decimal') {
             if (!displayedNum.includes('.')) {
-                display.textContent = displayedNum + '.'
+                display.textContent = displayedNum + '.';
             } 
             else if (previousKeyType === 'operator') {
-                display.textContent = '0.'
+                display.textContent = '0.';
             }
             calculator.dataset.previousKey = 'decimal';
         }
@@ -113,15 +116,30 @@ inputButtons.forEach((button) => {
            action === "subtract" ||
            action === "divide" ||
            action === "multiply") {
+            const firstValue = calculator.dataset.firstValue;
+            const operator = calculator.dataset.operator;
+            const secondValue = displayedNum;
+
+            if (firstValue && operator && previousKeyType == 'operator' && previousKeyType !== 'calculate') {
+                const calcValue = calculate(operator, firstValue, secondValue);
+                display.textContent = calcValue;
+                
+              // Update calculated value as firstValue
+                calculator.dataset.firstValue = calcValue;
+            } 
+            else {
+                // If there are no calculations, set displayedNum as the firstValue
+                calculator.dataset.firstValue = displayedNum;
+            }
             key.classList.add('is-pressed');
             calculator.dataset.previousKeyType = 'operator';
-            firstValue = displayedNum;
-            operator = action;
+            calculator.dataset.operator = action;        
         }
         
         if(action == "calculate"){
             calculator.dataset.previousKeyType = 'calculate';
-            secondValue = displayedNum;
+            firstValue = calculator.dataset.firstValue;
+            secondValue = displayedNum;          
             answer = calculate(operator, firstValue, secondValue);
             display.textContent = answer;
         }
