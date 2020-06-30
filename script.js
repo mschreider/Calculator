@@ -69,7 +69,6 @@ function calculate(operator, firstValue, secondValue){
 }
 
 let displayedNum = "";
-let operator = "";
 const calculator = document.querySelector('.calculator');
 const display = document.querySelector('.inputDisplay');
 display.textContent = "0";
@@ -138,10 +137,14 @@ inputButtons.forEach((button) => {
         
         if(action == "calculate"){
             calculator.dataset.previousKeyType = 'calculate';
-            firstValue = calculator.dataset.firstValue;
-            secondValue = displayedNum;          
+            let firstValue = calculator.dataset.firstValue;
+            let secondValue = displayedNum;
+            const operator = calculator.dataset.operator;        
             answer = calculate(operator, firstValue, secondValue);
             display.textContent = answer;
+            //if (!operator){
+                
+            //}
         }
 
         if (action == "clear"){
